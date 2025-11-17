@@ -68,6 +68,9 @@
 
 	<ItemGroup>
 	  <None Include=".github\copilot-instructions.md" />
+	  <None Include=".github\workflows\deploy-blazor.yml" />
+	  <None Include="BlazorMinesweeper.Shared\BlazorMinesweeper.Shared.csproj" />
+	  <None Include="BlazorMinesweeper\BlazorMinesweeper.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
