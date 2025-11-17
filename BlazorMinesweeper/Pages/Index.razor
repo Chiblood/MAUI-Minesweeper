@@ -1,0 +1,258 @@
+@page "/"
+@using BlazorMinesweeper.Shared.Models
+@using BlazorMinesweeper.Services
+@inject GameBoardService GameBoardService
+
+<PageTitle>Minesweeper</PageTitle>
+
+<div class="game-container">
+    <div class="game-header">
+        <h1>?? Minesweeper</h1>
+        
+        <div class="game-info">
+            <div class="info-item">
+                <span class="info-label">Flags:</span>
+                <span class="info-value">@FlagsRemaining</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Time:</span>
+                <span class="info-value">@ElapsedTime</span>
+            </div>
+            <div class="info-item status-@GameStatus.ToLower()">
+                <span class="info-label">Status:</span>
+                <span class="info-value">@GameStatus</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-controls">
+        <label>
+            Difficulty:
+            <select @onchange="OnDifficultyChanged" value="@_currentDifficulty">
+                <option value="Easy">Easy (8x8, 10 mines)</option>
+                <option value="Medium">Medium (16x16, 40 mines)</option>
+                <option value="Hard">Hard (16x30, 99 mines)</option>
+            </select>
+        </label>
+        <button class="btn-new-game" @onclick="StartNewGame">New Game</button>
+    </div>
+
+    <div class="game-board" style="grid-template-columns: repeat(@Cols, @(CellSize)px);">
+        @foreach (var cell in Cells)
+        {
+            <div class="cell @(cell.IsRevealed ? "revealed" : "")"
+                 style="width: @(CellSize)px; height: @(CellSize)px; color: @cell.CellColor; font-size: @(CellSize * 0.6)px;"
+                 @onclick="() => OnCellClicked(cell)"
+                 @oncontextmenu="(e) => OnCellRightClicked(cell, e)"
+                 @oncontextmenu:preventDefault="true">
+                @cell.DisplayText
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private CellModel[,]? _board;
+    private List<CellModel> Cells = new();
+    private int Rows = 10;
+    private int Cols = 10;
+    private int MineCount = 15;
+    private int FlagsRemaining = 15;
+    private string GameStatus = "Playing";
+    private int ElapsedTime = 0;
+    private bool IsGameOver = false;
+    private double CellSize = 40;
+    private Timer? _gameTimer;
+    private string _currentDifficulty = "Easy";
+
+    protected override void OnInitialized()
+    {
+        SetDifficulty("Easy");
+        StartNewGame();
+    }
+
+    private void StartNewGame()
+    {
+        IsGameOver = false;
+        FlagsRemaining = MineCount;
+        GameStatus = "Playing";
+        ElapsedTime = 0;
+
+        _gameTimer?.Dispose();
+        _gameTimer = new Timer(_ =>
+        {
+            if (!IsGameOver)
+            {
+                ElapsedTime++;
+                InvokeAsync(StateHasChanged);
+            }
+        }, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+
+        _board = GameBoardService.GenerateBoard(Rows, Cols, MineCount);
+
+        Cells.Clear();
+        for (int row = 0; row < Rows; row++)
+        {
+            for (int col = 0; col < Cols; col++)
+            {
+                Cells.Add(_board[row, col]);
+            }
+        }
+
+        StateHasChanged();
+    }
+
+    private void OnCellClicked(CellModel cell)
+    {
+        if (IsGameOver || cell.IsFlagged || cell.IsRevealed)
+            return;
+
+        GameBoardService.RevealCell(cell);
+
+        if (cell.IsMine)
+        {
+            HandleGameOver(false);
+            return;
+        }
+
+        if (cell.NeighboringMines == 0)
+        {
+            RevealAdjacentCells(cell);
+        }
+
+        CheckWinCondition();
+        StateHasChanged();
+    }
+
+    private void OnCellRightClicked(CellModel cell, MouseEventArgs e)
+    {
+        if (IsGameOver || cell.IsRevealed)
+            return;
+
+        bool wasFlagged = cell.IsFlagged;
+        GameBoardService.ToggleFlag(cell);
+        FlagsRemaining += cell.IsFlagged ? -1 : 1;
+
+        CheckWinCondition();
+        StateHasChanged();
+    }
+
+    private void RevealAdjacentCells(CellModel cell)
+    {
+        if (_board == null)
+            return;
+
+        var (row, col) = FindCellPosition(cell);
+        if (row == -1 || col == -1)
+            return;
+
+        for (int dr = -1; dr <= 1; dr++)
+        {
+            for (int dc = -1; dc <= 1; dc++)
+            {
+                if (dr == 0 && dc == 0)
+                    continue;
+
+                int newRow = row + dr;
+                int newCol = col + dc;
+
+                if (newRow >= 0 && newRow < Rows && newCol >= 0 && newCol < Cols)
+                {
+                    var adjacentCell = _board[newRow, newCol];
+
+                    if (!adjacentCell.IsRevealed && !adjacentCell.IsFlagged)
+                    {
+                        GameBoardService.RevealCell(adjacentCell);
+
+                        if (adjacentCell.NeighboringMines == 0)
+                        {
+                            RevealAdjacentCells(adjacentCell);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private (int row, int col) FindCellPosition(CellModel cell)
+    {
+        if (_board == null)
+            return (-1, -1);
+
+        for (int row = 0; row < Rows; row++)
+        {
+            for (int col = 0; col < Cols; col++)
+            {
+                if (_board[row, col] == cell)
+                    return (row, col);
+            }
+        }
+        return (-1, -1);
+    }
+
+    private void CheckWinCondition()
+    {
+        int revealedCount = 0;
+        int totalNonMineCells = Rows * Cols - MineCount;
+
+        foreach (var cell in Cells)
+        {
+            if (cell.IsRevealed && !cell.IsMine)
+                revealedCount++;
+        }
+
+        if (revealedCount == totalNonMineCells)
+        {
+            HandleGameOver(true);
+        }
+    }
+
+    private void HandleGameOver(bool won)
+    {
+        IsGameOver = true;
+        _gameTimer?.Dispose();
+        GameStatus = won ? "Won!" : "Lost!";
+
+        foreach (var cell in Cells)
+        {
+            if (!cell.IsRevealed)
+                cell.IsRevealed = true;
+        }
+
+        StateHasChanged();
+    }
+
+    private void OnDifficultyChanged(ChangeEventArgs e)
+    {
+        if (e.Value is string difficulty)
+        {
+            _currentDifficulty = difficulty;
+            SetDifficulty(difficulty);
+            StartNewGame();
+        }
+    }
+
+    private void SetDifficulty(string difficulty)
+    {
+        switch (difficulty)
+        {
+            case "Easy":
+                Rows = 8; Cols = 8; MineCount = 10;
+                CellSize = 50;
+                break;
+            case "Medium":
+                Rows = 16; Cols = 16; MineCount = 40;
+                CellSize = 35;
+                break;
+            case "Hard":
+                Rows = 16; Cols = 30; MineCount = 99;
+                CellSize = 25;
+                break;
+        }
+    }
+
+    public void Dispose()
+    {
+        _gameTimer?.Dispose();
+    }
+}
