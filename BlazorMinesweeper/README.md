@@ -85,7 +85,7 @@ dotnet publish -c Release -o ./publish
 
 ### Automatic Deployment (Recommended)
 
-This project includes a GitHub Actions workflow that automatically builds and deploys to GitHub Pages on every push to `main` or `master` branch.
+This project includes a GitHub Actions workflow that automatically builds and deploys to GitHub Pages on every push to `master` branch.
 
 ### Setup Steps:
 
@@ -98,7 +98,7 @@ This project includes a GitHub Actions workflow that automatically builds and de
    ```bash
    git add .
    git commit -m "Add Blazor WebAssembly project"
-   git push origin main
+   git push origin master
    ```
 
 3. **Monitor Deployment**:

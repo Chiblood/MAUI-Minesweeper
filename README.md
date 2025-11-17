@@ -145,7 +145,7 @@ This repository uses **two separate solution files** for clean separation:
 ### Blazor Web Version (GitHub Pages)
 
 Automatic deployment is configured via GitHub Actions:
-- Every push to `main` or `master` branch triggers deployment
+- Every push to `master` branch triggers deployment
 - Build and publish happens automatically
 - Site updates in ~2 minutes
 
@@ -168,7 +168,8 @@ See [MAUI deployment docs](https://learn.microsoft.com/dotnet/maui/deployment/) 
 ## ?? Documentation
 
 - **[Blazor README](BlazorMinesweeper/README.md)** - Web version setup and deployment
-- **[MAUI Troubleshooting](docs/TROUBLESHOOTING.md)** - Common issues and solutions
+- **[Deployment Guide](docs/DEPLOYMENT_GUIDE.md)** - Step-by-step deployment instructions
+- **[Deployment Checklist](docs/DEPLOYMENT_CHECKLIST.md)** - Quick deployment checklist
 - **[Copilot Instructions](.github/copilot-instructions.md)** - Development guidelines
 
 ## ?? Contributing
