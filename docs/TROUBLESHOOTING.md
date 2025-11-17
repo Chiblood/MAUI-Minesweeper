@@ -7,7 +7,8 @@
 4. [Threading Issues](#threading-issues)
 5. [Platform-Specific Issues](#platform-specific-issues)
 6. [Performance Issues](#performance-issues)
-7. [Debugging Tips](#debugging-tips)
+7. [Documentation Issues](#documentation-issues)
+8. [Debugging Tips](#debugging-tips)
 
 ---
 
@@ -650,7 +651,7 @@ private void OnCellRightClicked(object sender, TappedEventArgs e)
 
 **Solution**: Increase `CellSize` resource in App.xaml:
 ```xaml
-<x:Double x:Key="CellSize">50</x:Double> <!-- Increased from 40 -->
+<x:Double x:key="CellSize">50</x:Double> <!-- Increased from 40 -->
 ```
 
 **Issue**: Long-press not registering
@@ -758,6 +759,162 @@ private void RevealAdjacentCells(CellModel cell)
 2. Unsubscribe from events if any
 
 3. Run memory profiler to detect leaks
+
+---
+
+## Documentation Issues
+
+### Issue: Emojis showing as question marks (??) in README files
+
+**Symptom**: When viewing README.md or other markdown files in certain editors or browsers, emojis (??, ??, ??, etc.) appear as `??` question marks instead of the intended icons.
+
+**Root Cause**: File encoding mismatch. The files were either:
+1. Not saved with UTF-8 encoding
+2. Saved with incorrect encoding (Windows-1252, ANSI, etc.)
+3. Contained corrupted emoji characters that were saved with wrong encoding
+
+**Solution**: Re-save files with proper UTF-8 encoding
+
+#### In Visual Studio:
+
+**Method 1: Advanced Save Options**
+1. Open the affected file (e.g., `README.md`)
+2. Go to **File** ? **Advanced Save Options...**
+   - If option not visible: **Tools** ? **Customize...** ? **Commands** ? **Menu bar: File** ? **Add Command...** ? **File** ? **Advanced Save Options...**
+3. Select **"Unicode (UTF-8 without signature) - Codepage 65001"**
+4. Click **OK**
+5. Save the file (`Ctrl+S`)
+
+**Method 2: Save As with Encoding**
+1. Open the affected file
+2. **File** ? **Save As...**
+3. Click dropdown arrow next to **Save** button
+4. Select **"Save with Encoding..."**
+5. Choose **"Unicode (UTF-8 without signature) - Codepage 65001"**
+6. Click **OK**
+
+#### In VS Code:
+1. Open the file
+2. Look at **bottom-right corner** (shows current encoding, e.g., "UTF-8" or "Windows-1252")
+3. Click on the encoding name
+4. Select **"Save with Encoding"**
+5. Choose **"UTF-8"**
+6. Save the file
+
+#### In Notepad++:
+1. Open the file
+2. Go to **Encoding** menu
+3. Select **"Encode in UTF-8"** (NOT "UTF-8 with BOM")
+4. Save the file
+
+#### PowerShell Batch Conversion:
+If you need to convert multiple files:
+
+```powershell
+# Navigate to repository root
+cd "C:\Path\To\MAUI-Minesweeper"
+
+# Convert README files to UTF-8 without BOM
+$files = @(
+    "README.md",
+    "BlazorMinesweeper\README.md",
+    "docs\DEPLOYMENT_GUIDE.md"
+    # Add more files as needed
+)
+
+foreach ($file in $files) {
+    if (Test-Path $file) {
+        $content = Get-Content $file -Raw
+        [System.IO.File]::WriteAllText($file, $content, [System.Text.UTF8Encoding]::new($false))
+        Write-Host "? Converted: $file"
+    } else {
+        Write-Host "? Not found: $file"
+    }
+}
+```
+
+**Why UTF-8 without BOM?**
+
+| Encoding Type | Description | For Markdown/README |
+|---------------|-------------|---------------------|
+| **UTF-8 without BOM** ? | Clean UTF-8, no byte order mark | **Recommended** - Works everywhere |
+| UTF-8 with BOM | Has `EF BB BF` bytes at start | Can cause issues with some tools |
+| ANSI / Windows-1252 | Limited character set (Western European) | ? Emojis don't work |
+| Unicode (UTF-16) | Uses 2 bytes per character | ? Not suitable for text files |
+
+**BOM (Byte Order Mark)**: A special 3-byte sequence (`EF BB BF`) at the start of UTF-8 files. While optional for UTF-8, it can cause issues with:
+- Git diffs
+- Shell scripts
+- Some parsers
+- GitHub rendering (rare)
+
+For Markdown/README files, **UTF-8 without BOM** is the universal standard.
+
+**Verification**:
+
+After re-saving, check if emojis render correctly:
+
+1. **In Visual Studio**: Close and reopen the file
+2. **On GitHub**: Commit and push, then view on GitHub.com
+3. **In Git diff**: `git diff README.md` should show emoji changes
+4. **File size**: UTF-8 files with emojis are slightly larger than ANSI
+
+**Common Emojis Used in This Project**:
+
+| Emoji | Unicode | Meaning |
+|-------|---------|---------|
+| ?? | U+1F4A3 | Bomb/mine |
+| ?? | U+1F3AE | Game controller |
+| ?? | U+1F680 | Launch/start |
+| ?? | U+1F6A9 | Flag |
+| ? | U+2705 | Check mark |
+| ?? | U+1F4E6 | Package |
+| ?? | U+1F310 | Globe/web |
+| ?? | U+1F3AF | Target/goal |
+| ?? | U+23F1 | Stopwatch |
+| ??? | U+1F6E0 | Tools |
+| ?? | U+2764 | Heart |
+
+All these emojis are part of Unicode and will render correctly when files are saved as UTF-8.
+
+**Prevention**:
+
+To prevent future encoding issues:
+
+1. **Set Visual Studio default encoding**:
+   - **Tools** ? **Options**
+   - Navigate to **Environment** ? **Documents**
+   - Check: **"Save documents as Unicode (UTF-8 without signature) when data cannot be saved in codepage"**
+   - Click **OK**
+
+2. **Use VS Code for Markdown**: VS Code has better emoji and UTF-8 support out of the box
+
+3. **Check Git settings**:
+   ```bash
+   # Ensure Git doesn't mess with encoding
+   git config --global core.autocrlf true  # Windows
+   git config --global core.safecrlf warn
+   ```
+
+4. **Add to .editorconfig**:
+   ```ini
+   # .editorconfig
+   [*.md]
+   charset = utf-8
+   ```
+
+**Fixed Files** (as of 2025-01-17):
+- ? `README.md` - Root repository README
+- ? `BlazorMinesweeper/README.md` - Blazor project README
+
+Both files now properly display:
+- ?? Minesweeper title
+- ?? Play Online section
+- ?? Getting Started
+- ? Features with checkmarks
+- All other emojis throughout documentation
+
+**Issue Status**: ? **RESOLVED**
 
 ---
 
