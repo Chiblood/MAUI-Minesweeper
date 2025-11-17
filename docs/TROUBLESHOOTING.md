@@ -1086,7 +1086,7 @@ catch (Exception ex)
 
 ---
 
-**Last Updated**: 2025-01-XX (Updated after fixing DisplayText notification issue)  
+**Last Updated**: 2025-01-17 (Added emoji encoding troubleshooting section)  
 **Maintained By**: Jack Taylor
 
 **Note**: If you encounter an issue not covered here, please add it to this document after resolving it!
