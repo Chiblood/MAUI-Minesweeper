@@ -1,33 +1,33 @@
-# ?? Minesweeper - Multi-Platform Game
+# 💣 Minesweeper - Multi-Platform Game
 
 A classic Minesweeper game implementation with both **native mobile/desktop apps** (.NET MAUI) and a **web browser version** (Blazor WebAssembly).
 
-## ?? Play Online
+## 🎮 Play Online
 
 **Web Version**: [https://chiblood.github.io/MAUI-Minesweeper/](https://chiblood.github.io/MAUI-Minesweeper/)
 
-## ?? Repository Structure
+## 📦 Repository Structure
 
 This repository contains **two separate solutions**:
 
 ```
 MAUI-Minesweeper/
-??? ?? MAUI Minesweeper/          # Native app for Windows, Android, iOS, macOS
-?   ??? MAUI Minesweeper.sln
-?   ??? Models/
-?   ??? ViewModels/
-?   ??? Views/
-?   ??? Services/
-?
-??? ?? BlazorMinesweeper/         # Web browser version
-?   ??? BlazorMinesweeper.sln
-?   ??? BlazorMinesweeper/        # Main Blazor WebAssembly project
-?   ??? BlazorMinesweeper.Shared/ # Shared models
-?
-??? .github/workflows/            # CI/CD for GitHub Pages deployment
+├── 📱 MAUI Minesweeper/          # Native app for Windows, Android, iOS, macOS
+│   ├── MAUI Minesweeper.sln
+│   ├── Models/
+│   ├── ViewModels/
+│   ├── Views/
+│   └── Services/
+│
+├── 🌐 BlazorMinesweeper/         # Web browser version
+│   ├── BlazorMinesweeper.sln
+│   ├── BlazorMinesweeper/        # Main Blazor WebAssembly project
+│   └── BlazorMinesweeper.Shared/ # Shared models
+│
+└── .github/workflows/            # CI/CD for GitHub Pages deployment
 ```
 
-## ?? Getting Started
+## 🚀 Getting Started
 
 ### Option 1: Play in Browser (Easiest)
 Just visit: **[https://chiblood.github.io/MAUI-Minesweeper/](https://chiblood.github.io/MAUI-Minesweeper/)**
@@ -73,29 +73,29 @@ dotnet run --project BlazorMinesweeper/BlazorMinesweeper.csproj
 
 Then open your browser to `https://localhost:5001`
 
-## ? Features
+## ✨ Features
 
 ### Common Features (Both Versions)
-- ?? Classic Minesweeper gameplay
-- ?? Three difficulty levels (Easy, Medium, Hard)
-- ?? Game timer
-- ?? Flag counter
-- ?? Win/Loss detection
-- ?? Color-coded numbers
+- 💣 Classic Minesweeper gameplay
+- 🎯 Three difficulty levels (Easy, Medium, Hard)
+- ⏱️ Game timer
+- 🚩 Flag counter
+- 🏆 Win/Loss detection
+- 🎨 Color-coded numbers
 
 ### MAUI App Exclusive
-- ? Native performance
-- ? Works offline
-- ? Platform-specific optimizations
-- ? Mobile touch gestures
+- ✅ Native performance
+- ✅ Works offline
+- ✅ Platform-specific optimizations
+- ✅ Mobile touch gestures
 
 ### Blazor Web Exclusive
-- ? No installation required
-- ? Cross-platform (any device with a browser)
-- ? PWA support (install as app)
-- ? Automatic updates via GitHub Pages
+- ✅ No installation required
+- ✅ Cross-platform (any device with a browser)
+- ✅ PWA support (install as app)
+- ✅ Automatic updates via GitHub Pages
 
-## ?? How to Play
+## 🎯 How to Play
 
 1. **Objective**: Reveal all cells that don't contain mines
 2. **Controls**:
@@ -105,7 +105,7 @@ Then open your browser to `https://localhost:5001`
 4. **Win**: Reveal all non-mine cells
 5. **Lose**: Click on a mine
 
-## ??? Technology Stack
+## 🛠️ Technology Stack
 
 ### MAUI Version
 - **Framework**: .NET MAUI (.NET 9)
@@ -121,7 +121,7 @@ Then open your browser to `https://localhost:5001`
 - **Deployment**: GitHub Pages
 - **CI/CD**: GitHub Actions
 
-## ?? Solution Structure
+## 📂 Solution Structure
 
 ### Why Two Solutions?
 
@@ -136,11 +136,11 @@ This repository uses **two separate solution files** for clean separation:
    - Faster build times for web-only changes
 
 **Both share the same Git repository** for:
-- ? Unified issue tracking
-- ? Single deployment workflow
-- ? Shared documentation
+- ✅ Unified issue tracking
+- ✅ Single deployment workflow
+- ✅ Shared documentation
 
-## ?? Deployment
+## 🚀 Deployment
 
 ### Blazor Web Version (GitHub Pages)
 
@@ -165,14 +165,14 @@ For app store distribution:
 
 See [MAUI deployment docs](https://learn.microsoft.com/dotnet/maui/deployment/) for details.
 
-## ?? Documentation
+## 📖 Documentation
 
 - **[Blazor README](BlazorMinesweeper/README.md)** - Web version setup and deployment
 - **[Deployment Guide](docs/DEPLOYMENT_GUIDE.md)** - Step-by-step deployment instructions
 - **[Deployment Checklist](docs/DEPLOYMENT_CHECKLIST.md)** - Quick deployment checklist
 - **[Copilot Instructions](.github/copilot-instructions.md)** - Development guidelines
 
-## ?? Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -183,21 +183,21 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Test on multiple platforms before submitting
 5. Update documentation for new features
 
-## ?? Known Issues
+## 🐛 Known Issues
 
 - None at the moment! Report issues on the [GitHub Issues](https://github.com/Chiblood/MAUI-Minesweeper/issues) page.
 
-## ?? License
+## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## ?? Acknowledgments
+## 🙏 Acknowledgments
 
 - Built with [.NET MAUI](https://dotnet.microsoft.com/apps/maui) and [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
 - Deployed on [GitHub Pages](https://pages.github.com/)
 - Inspired by the classic Windows Minesweeper game
 
-## ?? Screenshots
+## 📱 Screenshots
 
 ### Web Version (Blazor)
 *Coming soon - add screenshots here*
@@ -208,7 +208,7 @@ This project is open source and available under the [MIT License](LICENSE).
 ---
 
 **Choose Your Platform:**
-- ?? [Play in Browser](https://chiblood.github.io/MAUI-Minesweeper/) - No installation needed
-- ?? Download Native App - Better performance, offline play
+- 🌐 [Play in Browser](https://chiblood.github.io/MAUI-Minesweeper/) - No installation needed
+- 📱 Download Native App - Better performance, offline play
 
-**Made with ?? and C#**
+**Made with ❤️ and C#**

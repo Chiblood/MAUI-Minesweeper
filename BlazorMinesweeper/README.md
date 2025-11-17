@@ -2,50 +2,50 @@
 
 A browser-based Minesweeper game built with Blazor WebAssembly and .NET 9, deployed on GitHub Pages.
 
-## ?? Play Now
+## 🎮 Play Now
 
 Visit: **[https://chiblood.github.io/MAUI-Minesweeper/](https://chiblood.github.io/MAUI-Minesweeper/)**
 
-## ? Features
+## ✨ Features
 
-- ?? Classic Minesweeper gameplay
-- ?? Three difficulty levels (Easy, Medium, Hard)
-- ?? Timer and flag counter
-- ?? Responsive design for mobile and desktop
-- ?? Progressive Web App (PWA) support
-- ?? Touch and mouse support (left-click to reveal, right-click to flag)
+- 💣 Classic Minesweeper gameplay
+- 🎯 Three difficulty levels (Easy, Medium, Hard)
+- ⏱️ Timer and flag counter
+- 🎨 Responsive design for mobile and desktop
+- 🚀 Progressive Web App (PWA) support
+- 📱 Touch and mouse support (left-click to reveal, right-click to flag)
 
-## ??? Technology Stack
+## 🛠️ Technology Stack
 
 - **Framework**: Blazor WebAssembly
 - **Language**: C# (.NET 9)
 - **Hosting**: GitHub Pages
 - **CI/CD**: GitHub Actions
 
-## ??? Project Structure
+## 🏗️ Project Structure
 
 ```
 BlazorMinesweeper/
-??? Pages/
-?   ??? Index.razor          # Main game page
-??? Services/
-?   ??? GameBoardService.cs  # Game logic service
-??? Shared/
-?   ??? MainLayout.razor     # Layout component
-??? wwwroot/
-?   ??? css/
-?   ?   ??? app.css         # Styles
-?   ??? index.html          # Entry point
-?   ??? manifest.json       # PWA manifest
-?   ??? service-worker.js   # Service worker for offline support
-??? Program.cs              # Application entry point
+├── Pages/
+│   └── Index.razor          # Main game page
+├── Services/
+│   └── GameBoardService.cs  # Game logic service
+├── Shared/
+│   └── MainLayout.razor     # Layout component
+├── wwwroot/
+│   ├── css/
+│   │   └── app.css         # Styles
+│   ├── index.html          # Entry point
+│   ├── manifest.json       # PWA manifest
+│   └── service-worker.js   # Service worker for offline support
+└── Program.cs              # Application entry point
 
 BlazorMinesweeper.Shared/
-??? Models/
-    ??? CellModel.cs        # Cell data model
+└── Models/
+    └── CellModel.cs        # Cell data model
 ```
 
-## ?? Local Development
+## 🚀 Local Development
 
 ### Prerequisites
 - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
@@ -81,7 +81,7 @@ dotnet run
 dotnet publish -c Release -o ./publish
 ```
 
-## ?? Deployment to GitHub Pages
+## 📦 Deployment to GitHub Pages
 
 ### Automatic Deployment (Recommended)
 
@@ -91,7 +91,7 @@ This project includes a GitHub Actions workflow that automatically builds and de
 
 1. **Enable GitHub Pages**:
    - Go to your repository on GitHub
-   - Navigate to **Settings** ? **Pages**
+   - Navigate to **Settings** → **Pages**
    - Under **Source**, select **GitHub Actions**
 
 2. **Push Changes**:
@@ -132,7 +132,7 @@ touch release/wwwroot/.nojekyll
 
 5. Deploy the contents of `release/wwwroot/` to the `gh-pages` branch
 
-## ?? How to Play
+## 🎯 How to Play
 
 1. **Objective**: Reveal all cells that don't contain mines
 2. **Controls**:
@@ -142,7 +142,7 @@ touch release/wwwroot/.nojekyll
 4. **Win**: Reveal all non-mine cells
 5. **Lose**: Click on a mine
 
-## ?? Configuration
+## 🔧 Configuration
 
 ### Change Repository Name
 
@@ -169,23 +169,23 @@ case "Hard":
     break;
 ```
 
-## ?? Related Projects
+## 📝 Related Projects
 
 - **MAUI Version**: This repository also contains a .NET MAUI version of Minesweeper for Windows, Android, iOS, and macOS in the root directory.
 
-## ?? Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## ?? License
+## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## ?? Known Issues
+## 🐛 Known Issues
 
 - None at the moment! Report issues on the [GitHub Issues](https://github.com/Chiblood/MAUI-Minesweeper/issues) page.
 
-## ?? Acknowledgments
+## 🙏 Acknowledgments
 
 - Built with [Blazor WebAssembly](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor)
 - Deployed on [GitHub Pages](https://pages.github.com/)
@@ -193,4 +193,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-**Made with ?? and C#**
+**Made with ❤️ and C#**
