@@ -66,8 +66,8 @@ namespace BlazorMinesweeper.Shared.Models
         }
 
         // FOR UI CONVENIENCE
-        public string DisplayText => _isMine && _isRevealed ? "??" :
-                                     _isFlagged ? "??" :
+        public string DisplayText => _isMine && _isRevealed ? "💣" :
+                                     _isFlagged ? "🚩" :
                                      _isRevealed && _neighboringMines > 0 ? _neighboringMines.ToString() : "";
 
         public string CellColor
