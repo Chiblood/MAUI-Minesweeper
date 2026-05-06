@@ -4,7 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:MAUI_Minesweeper.Views"
-    Title="Minesweeper">
+    Title="⚓ Minesweeper"
+    Shell.BackgroundColor="#0D1B2A"
+    Shell.ForegroundColor="#D4AC0D"
+    Shell.TitleColor="#D4AC0D"
+    Shell.NavBarHasShadow="False">
 
     <ShellContent
         Title="Game"

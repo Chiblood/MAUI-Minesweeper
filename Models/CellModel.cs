@@ -56,8 +56,11 @@ namespace MAUI_Minesweeper.Models
         }
         private bool _isMine;
 
-        // FOR UI CONVENIENCE
-        public string DisplayText => _isMine && _isRevealed ? "💣" : 
+        // Nautical theme display symbols.
+        // ⚓ = anchor (mine / danger)   🚩 = flag (marker)
+        // To replace with custom Image assets: expose IsMine/IsFlagged directly
+        // and bind Image.Source in the DataTemplate instead of this Label text.
+        public string DisplayText => _isMine && _isRevealed ? "⚓" : 
                                      _isFlagged ? "🚩" : 
                                      _isRevealed && _neighboringMines > 0 ? _neighboringMines.ToString() : "";
     }

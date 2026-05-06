@@ -42,4 +42,42 @@
     <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
     <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
     <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- Nautical Theme Colors                                           -->
+    <!-- Replace placeholder assets by dropping SVGs into Resources/    -->
+    <!-- Images/ and binding them to Image controls in GamePage.xaml.   -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- Backgrounds -->
+    <Color x:Key="NavyDeep">#0D1B2A</Color>
+    <Color x:Key="NavyMid">#1A3050</Color>
+    <Color x:Key="OceanBlue">#1B4F72</Color>
+    <Color x:Key="WaveBlue">#2E86AB</Color>
+
+    <!-- Accents -->
+    <Color x:Key="SeaTeal">#17A589</Color>
+    <Color x:Key="SeaTealDark">#0E7063</Color>
+    <Color x:Key="GoldAnchor">#D4AC0D</Color>
+    <Color x:Key="CoralRed">#C0392B</Color>
+    <Color x:Key="CoralLight">#E74C3C</Color>
+
+    <!-- Cell surfaces -->
+    <Color x:Key="CellUnrevealed">#1B4F72</Color>
+    <Color x:Key="CellUnrevealedBorder">#2E86AB</Color>
+    <Color x:Key="CellRevealed">#EDE0C4</Color>
+    <Color x:Key="CellRevealedBorder">#C8B89A</Color>
+    <Color x:Key="CellMine">#7B241C</Color>
+
+    <!-- Text on dark panels -->
+    <Color x:Key="PanelText">#D6EAF8</Color>
+    <!-- Text on sand/revealed cells -->
+    <Color x:Key="CellText">#1A3050</Color>
+
+    <!-- Brushes -->
+    <SolidColorBrush x:Key="NavyDeepBrush"      Color="{StaticResource NavyDeep}"/>
+    <SolidColorBrush x:Key="OceanBlueBrush"     Color="{StaticResource OceanBlue}"/>
+    <SolidColorBrush x:Key="SeaTealBrush"       Color="{StaticResource SeaTeal}"/>
+    <SolidColorBrush x:Key="GoldAnchorBrush"    Color="{StaticResource GoldAnchor}"/>
+    <SolidColorBrush x:Key="CoralRedBrush"      Color="{StaticResource CoralRed}"/>
 </ResourceDictionary>
