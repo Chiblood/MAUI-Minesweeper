@@ -5,161 +5,193 @@
              xmlns:models="clr-namespace:MAUI_Minesweeper.Models"
              xmlns:viewmodels="clr-namespace:MAUI_Minesweeper.ViewModels"
              x:DataType="viewmodels:GameViewModel"
-             Title="GamePage">
-    <Grid RowDefinitions="Auto,*,Auto" Padding="10">
+             Title="⚓ Minesweeper"
+             BackgroundColor="{StaticResource NavyDeep}">
 
-        <!-- Header Section: Game Stats -->
-        <Grid Grid.Row="0" 
-              ColumnDefinitions="*,*,*" 
-              Padding="10"
-              ColumnSpacing="10">
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="10,6,10,10">
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- Title Banner                                                     -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Label Grid.Row="0"
+               Text="⚓  MINESWEEPER"
+               FontSize="22"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="{StaticResource GoldAnchor}"
+               Margin="0,4,0,6"
+               CharacterSpacing="3"/>
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- Header Section: Game Stats                                      -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*,*,*"
+              Padding="0,0,0,8"
+              ColumnSpacing="8">
 
             <!-- Flags Remaining -->
-            <Border Grid.Column="0" 
-                    Padding="10" 
-                    BackgroundColor="#E3F2FD"
-                    Stroke="#2196F3"
-                    StrokeThickness="2"
+            <Border Grid.Column="0"
+                    Padding="10,8"
+                    BackgroundColor="{StaticResource NavyMid}"
+                    Stroke="{StaticResource GoldAnchor}"
+                    StrokeThickness="1.5"
                     StrokeShape="RoundRectangle8">
-                <VerticalStackLayout Spacing="5">
-                    <Label Text="🚩 Flags" 
-                           FontSize="14"
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="🚩 Flags"
+                           FontSize="13"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
-                           TextColor="Black"/>
-                    <Label Text="{Binding FlagsRemaining}" 
-                           FontSize="20"
+                           TextColor="{StaticResource GoldAnchor}"/>
+                    <Label Text="{Binding FlagsRemaining}"
+                           FontSize="22"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
-                           TextColor="Black"/>
+                           TextColor="{StaticResource PanelText}"/>
                 </VerticalStackLayout>
             </Border>
 
             <!-- Game Status -->
-            <Border Grid.Column="1" 
-                    Padding="10" 
-                    BackgroundColor="#FFF3E0"
-                    Stroke="#FF9800"
-                    StrokeThickness="2"
+            <Border Grid.Column="1"
+                    Padding="10,8"
+                    BackgroundColor="{StaticResource NavyMid}"
+                    Stroke="{StaticResource SeaTeal}"
+                    StrokeThickness="1.5"
                     StrokeShape="RoundRectangle8">
-                <VerticalStackLayout Spacing="5">
-                    <Label Text="Status" 
-                           FontSize="14"
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="Status"
+                           FontSize="13"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
-                           TextColor="Black"/>
-
-                    <Label Text="{Binding GameStatus}" 
-                           FontSize="20"
+                           TextColor="{StaticResource SeaTeal}"/>
+                    <Label Text="{Binding GameStatus}"
+                           FontSize="22"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
-                           TextColor="Black"/>
-                    
+                           TextColor="{StaticResource PanelText}"/>
                 </VerticalStackLayout>
             </Border>
 
             <!-- Timer -->
-            <Border Grid.Column="2" 
-                    Padding="10" 
-                    BackgroundColor="#E8F5E9"
-                    Stroke="#4CAF50"
-                    StrokeThickness="2"
+            <Border Grid.Column="2"
+                    Padding="10,8"
+                    BackgroundColor="{StaticResource NavyMid}"
+                    Stroke="{StaticResource WaveBlue}"
+                    StrokeThickness="1.5"
                     StrokeShape="RoundRectangle8">
-                <VerticalStackLayout Spacing="5">
-                    <Label Text="⏱️ Time" 
-                           FontSize="14"
+                <VerticalStackLayout Spacing="2">
+                    <Label Text="⏱️ Time"
+                           FontSize="13"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
-                           TextColor="Black"/>
-                    <Label Text="{Binding ElapsedTime}" 
-                           FontSize="20"
+                           TextColor="{StaticResource WaveBlue}"/>
+                    <Label Text="{Binding ElapsedTime}"
+                           FontSize="22"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"
-                           TextColor="Black"/>
+                           TextColor="{StaticResource PanelText}"/>
                 </VerticalStackLayout>
             </Border>
         </Grid>
-        
-        <!-- Game Board: CollectionView with Grid Layout -->
-        <ScrollView Grid.Row="1" 
-            HorizontalScrollBarVisibility="Always"
-            VerticalScrollBarVisibility="Always">
+
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- Game Board                                                       -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <ScrollView Grid.Row="2"
+                    HorizontalScrollBarVisibility="Always"
+                    VerticalScrollBarVisibility="Always">
             <CollectionView ItemsSource="{Binding Cells}"
-                    SelectionMode="None"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center">
+                            SelectionMode="None"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
 
                 <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Horizontal" 
-                             Span="{Binding Cols}"
-                             HorizontalItemSpacing="0"
-                             VerticalItemSpacing="0"/>
+                    <GridItemsLayout Orientation="Horizontal"
+                                     Span="{Binding Cols}"
+                                     HorizontalItemSpacing="2"
+                                     VerticalItemSpacing="2"/>
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Null}">
+                        <!--
+                            Cell tile — unrevealed: ocean-blue with gold border.
+                            Revealed: sandy parchment.
+                            ───────────────────────────────────────────────────
+                            ASSET GAP: replace the Label below with an Image
+                            (e.g. anchor.svg, flag.svg) when artwork is ready.
+                            Each image should be placed in Resources/Images/ and
+                            listed in the .csproj <MauiImage Include="…"/> group.
+                        -->
                         <Border Padding="0"
-                            Stroke="#999"
-                            StrokeThickness="1"
-                            StrokeShape="RoundRectangle4"
-                            WidthRequest="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CellSize}"
-                            HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CellSize}">  
-                            
-                            <!-- Cell Button with Gestures -->
+                                Stroke="{StaticResource GoldAnchor}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle3"
+                                WidthRequest="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CellSize}"
+                                HeightRequest="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CellSize}">
+
                             <Grid BackgroundColor="{Binding IsRevealed, Converter={StaticResource CellBackgroundConverter}}">
                                 <Grid.GestureRecognizers>
-                                    <!-- Separate recognizers for left and right clicks -->
-                                    <TapGestureRecognizer 
+                                    <TapGestureRecognizer
                                         Tapped="OnCellLeftClicked"
                                         Buttons="Primary" />
-                                    <TapGestureRecognizer 
+                                    <TapGestureRecognizer
                                         Tapped="OnCellRightClicked"
                                         Buttons="Secondary" />
                                 </Grid.GestureRecognizers>
-                                
-                                <!-- Cell Content -->
+
                                 <Label Text="{Binding DisplayText}"
-                                   FontSize="18"
-                                   FontAttributes="Bold"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"
-                                   TextColor="{Binding NeighboringMines, Converter={StaticResource MineCountColorConverter}}"/>
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       TextColor="{Binding NeighboringMines, Converter={StaticResource MineCountColorConverter}}"/>
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </ScrollView>
-        
-        <!-- Footer Section: Controls -->
-        <Grid Grid.Row="2" 
-          ColumnDefinitions="*,Auto" 
-          Padding="10"
-          ColumnSpacing="10">
 
-            <!-- Difficulty Picker -->
-            <Picker Grid.Column="0"
-                Title="Difficulty"
-                SelectedIndexChanged="OnDifficultyChanged"
-                BackgroundColor="#F5F5F5"
-                    TextColor="Black">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Easy (8x8)</x:String>
-                        <x:String>Medium (16x16)</x:String>
-                        <x:String>Hard (16x30)</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-            </Picker>
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <!-- Footer Section: Controls                                        -->
+        <!-- ═══════════════════════════════════════════════════════════════ -->
+        <Border Grid.Row="3"
+                BackgroundColor="{StaticResource NavyMid}"
+                Stroke="{StaticResource GoldAnchor}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle8"
+                Padding="10,8"
+                Margin="0,8,0,0">
+            <Grid ColumnDefinitions="*,Auto"
+                  ColumnSpacing="10">
 
-            <!-- New Game Button -->
-            <Button Grid.Column="1"
-                Text="🔄 New Game"
-                Command="{Binding NewGameCommand}"
-                BackgroundColor="#2196F3"
-                TextColor="White"
-                CornerRadius="8"
-                Padding="20,10"/>
-        </Grid>
+                <!-- Difficulty Picker -->
+                <Picker Grid.Column="0"
+                        Title="Difficulty"
+                        SelectedIndexChanged="OnDifficultyChanged"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource PanelText}"
+                        TitleColor="{StaticResource SeaTeal}">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Easy (8x8)</x:String>
+                            <x:String>Medium (16x16)</x:String>
+                            <x:String>Hard (16x30)</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+
+                <!-- New Game Button -->
+                <Button Grid.Column="1"
+                        Text="⚓ New Voyage"
+                        Command="{Binding NewGameCommand}"
+                        BackgroundColor="{StaticResource SeaTeal}"
+                        TextColor="White"
+                        CornerRadius="8"
+                        Padding="16,10"
+                        FontAttributes="Bold"/>
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>
