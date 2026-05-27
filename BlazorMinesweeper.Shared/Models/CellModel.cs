@@ -65,28 +65,29 @@ namespace BlazorMinesweeper.Shared.Models
             }
         }
 
-        // FOR UI CONVENIENCE
-        public string DisplayText => _isMine && _isRevealed ? "💣" :
-                                     _isFlagged ? "🚩" :
-                                     _isRevealed && _neighboringMines > 0 ? _neighboringMines.ToString() : "";
+        // Nautical symbols aligned with the MAUI implementation.
+        public string DisplayText => _isMine && _isRevealed ? "⚓" :
+                         _isFlagged ? "🚩" :
+                         _isRevealed && _neighboringMines > 0 ? _neighboringMines.ToString() : "";
 
         public string CellColor
         {
             get
             {
-                if (!IsRevealed) return "#aaa";
-                if (IsMine) return "#f44336";
+                if (IsFlagged) return "#D4AC0D";
+                if (!IsRevealed) return "#D6EAF8";
+                if (IsMine) return "#C0392B";
                 return NeighboringMines switch
                 {
-                    1 => "#2196F3",
-                    2 => "#4CAF50",
-                    3 => "#FF9800",
-                    4 => "#9C27B0",
-                    5 => "#F44336",
-                    6 => "#00BCD4",
-                    7 => "#000000",
-                    8 => "#757575",
-                    _ => "#fff"
+                    1 => "#1B4F72",
+                    2 => "#17A589",
+                    3 => "#E74C3C",
+                    4 => "#0D1B2A",
+                    5 => "#7B241C",
+                    6 => "#0E7063",
+                    7 => "#1A3050",
+                    8 => "#717D7E",
+                    _ => "#1A3050"
                 };
             }
         }

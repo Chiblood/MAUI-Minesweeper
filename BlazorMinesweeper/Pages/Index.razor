@@ -3,11 +3,11 @@
 @using BlazorMinesweeper.Services
 @inject GameBoardService GameBoardService
 
-<PageTitle>Minesweeper</PageTitle>
+<PageTitle>Nautical Minesweeper</PageTitle>
 
 <div class="game-container">
     <div class="game-header">
-        <h1>💣 Minesweeper</h1>
+        <h1>⚓ Minesweeper</h1>
         
         <div class="game-info">
             <div class="info-item">
@@ -34,7 +34,7 @@
                 <option value="Hard">Hard (16x30, 99 mines)</option>
             </select>
         </label>
-        <button class="btn-new-game" @onclick="StartNewGame">New Game</button>
+        <button class="btn-new-game" @onclick="StartNewGame">⚓ New Voyage</button>
     </div>
 
     <div class="game-board" style="grid-template-columns: repeat(@Cols, @(CellSize)px);">
